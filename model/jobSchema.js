@@ -12,8 +12,13 @@ const jobSchema = new mongoose.Schema({
         type : mongoose.Types.ObjectId,
         ref : 'auth',
         required : [true, 'Please provide user']
+    },
+    location : String,
+    jobType : {
+        type : String,
+        enums : ['Internship', 'Full-Time', 'Remote'],
+        required : [true, 'Please provide job Type']
     }
-    
 }, {timestamps : true})
 
 module.exports = mongoose.model('jobs', jobSchema)
