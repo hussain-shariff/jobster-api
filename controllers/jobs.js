@@ -1,4 +1,5 @@
 const jobsModel = require('../model/jobSchema')
+const authModel = require('../model/authSchema')
 
 const getAllJobs = async (req, res) =>{
     const jobs = await jobsModel.find({ createdBy : req.user.userID}).sort('createdAt')
@@ -21,6 +22,11 @@ const updateJob = async (req, res) =>{
     const job = await jobsModel.findOneAndUpdate({ _id : id, createdBy : userID }, req.body, { new : true })
     res.json(job)
 }
+const updateUser = async (req, res) =>{
+    const {userID} = req.user
+    const user = await authModel.findOneAndUpdate({ _id : userID }, req.body, { new : true })
+    res.json(user)
+}
 const deleteJob = async (req, res) =>{
     const { id } = req.params
     const {userID} = req.user
@@ -33,5 +39,6 @@ module.exports = {
     getJob,
     updateJob,
     deleteJob,
-    createJob
+    createJob,
+    updateUser
 }

@@ -5,12 +5,14 @@ const {
     getJob,
     updateJob,
     deleteJob,
-    createJob
+    createJob,
+    updateUser
 } = require('../controllers/jobs')
 
 router.get('/', getAllJobs)
 router.get('/:id', getJob)
 router.patch('/:id', updateJob)
+router.patch('/', updateUser)
 router.delete('/:id', deleteJob)
 router.post('/', createJob)
 
