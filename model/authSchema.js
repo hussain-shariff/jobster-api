@@ -4,12 +4,14 @@ const jwt = require('jsonwebtoken')
 
 const authSchema = new mongoose.Schema({
     username : String,
+    lastname : String,
     password : String,
     email : {
         type : String,
         required : [true, "please provide email"],
         unique : true
-    }
+    },
+    location : String
 })
 
 // hashing password
