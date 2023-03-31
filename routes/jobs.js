@@ -6,10 +6,12 @@ const {
     updateJob,
     deleteJob,
     createJob,
-    updateUser
+    updateUser,
+    getCurrentUser
 } = require('../controllers/jobs')
 
 router.get('/', getAllJobs)
+router.get('/user', getCurrentUser)
 router.get('/:id', getJob)
 router.patch('/:id', updateJob)
 router.patch('/', updateUser)

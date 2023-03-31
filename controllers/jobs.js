@@ -27,6 +27,12 @@ const updateUser = async (req, res) =>{
     const user = await authModel.findOneAndUpdate({ _id : userID }, req.body, { new : true })
     res.json(user)
 }
+
+const getCurrentUser = async (req, res) =>{
+    const {userID} = req.user
+    const user = await authModel.findOne({ _id : userID })
+    res.json(user)
+}
 const deleteJob = async (req, res) =>{
     const { id } = req.params
     const {userID} = req.user
@@ -40,5 +46,6 @@ module.exports = {
     updateJob,
     deleteJob,
     createJob,
-    updateUser
+    updateUser,
+    getCurrentUser
 }
