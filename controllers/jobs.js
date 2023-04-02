@@ -40,6 +40,37 @@ const deleteJob = async (req, res) =>{
     res.json(jobs)
 }
 
+const filterJobs = async (req, res) =>{
+    const {status, jobType, search, sort} = req.query
+    const queryObject = {
+        createdBy : req.user.userID,
+    };
+    if (status && status !== 'all') {
+        queryObject.status = status;
+    }
+    if (jobType && jobType !== 'all') {
+        queryObject.jobType = jobType;
+    }
+    if (search) {
+        queryObject.position = { $regex: search, $options: 'i' };
+    }
+
+    if (sort === 'latest') {
+        querySort = '-createdAt'
+    }
+    if (sort === 'oldest') {
+        querySort = 'createdAt'
+    }
+    if (sort === 'a-z') {
+        querySort = 'position'
+    }
+    if (sort === 'z-a') {
+        querySort = '-position'
+    }
+    const jobs = await jobsModel.find(queryObject).sort(querySort)
+    res.json(jobs) 
+}
+
 module.exports = {
     getAllJobs,
     getJob,
@@ -47,5 +78,6 @@ module.exports = {
     deleteJob,
     createJob,
     updateUser,
-    getCurrentUser
+    getCurrentUser,
+    filterJobs
 }
