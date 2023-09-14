@@ -1,7 +1,6 @@
-const authModel = require('../model/authSchema')
-const bcrypt = require('bcryptjs')
+import authModel from '../model/authSchema.js'
 
-const register = async (req, res) => {
+export const register = async (req, res) => {
     try {
         const user = await authModel.create({...req.body })
         const token = user.createJWT()
@@ -11,7 +10,7 @@ const register = async (req, res) => {
     }
 }
 
-const login = async (req, res) => {
+export const login = async (req, res) => {
     const { email, password } = req.body
     const user = await authModel.findOne({email})
     if(!user){
@@ -26,9 +25,4 @@ const login = async (req, res) => {
         res.json({user : user.username, token})
         }
     }
-}
-
-module.exports = {
-    register,
-    login
 }
