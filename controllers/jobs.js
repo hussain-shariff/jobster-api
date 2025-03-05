@@ -76,6 +76,7 @@ export const deleteJob = async (req, res) => {
 
 export const filterJobs = async (req, res) => {
 	const { status, jobType, search, sort } = req.query
+	let querySort = ""
 	const queryObject = {
 		createdBy: req.user.userID,
 	}
